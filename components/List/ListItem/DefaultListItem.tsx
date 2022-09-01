@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {ListItem, Avatar, Divider, Button} from '@ui-kitten/components';
 import {ImageURISource, View} from 'react-native';
 
@@ -14,14 +14,20 @@ const DefaultListItem = ({
   onViewButtonPress,
 }: {
   item: Item;
-  onViewButtonPress?: () => void;
+  onViewButtonPress?: (id: number) => void;
 }) => {
+  const handleViewButtonPress = useCallback(() => {
+    if (onViewButtonPress) {
+      onViewButtonPress(item.id as number);
+    }
+  }, [item.id]);
+
   const ItemImage = () => {
     return <Avatar source={{uri: item.avatar} as ImageURISource} />;
   };
 
   const ItemButtons = () => (
-    <Button size="tiny" onPress={onViewButtonPress}>
+    <Button size="medium" onPress={handleViewButtonPress}>
       View
     </Button>
   );

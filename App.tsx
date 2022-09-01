@@ -5,15 +5,13 @@ import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import store from './store/store';
 import MainStackNavigation from './navigation/MainStackNavigation';
-import MainBottomNavigation from './features/Contact/navigation/MainBottomNavigation';
 
 export default () => (
   <>
     <IconRegistry icons={EvaIconsPack} />
     <Provider store={store}>
       <ApplicationProvider {...eva} theme={eva.light}>
-        {/* <MainStackNavigation /> */}
-        <MainBottomNavigation />
+        <MainStackNavigation />
       </ApplicationProvider>
     </Provider>
   </>

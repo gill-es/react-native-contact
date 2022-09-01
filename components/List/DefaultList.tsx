@@ -7,7 +7,7 @@ const DefaultList = ({
   onViewButtonPress,
 }: {
   data: Array<Item>;
-  onViewButtonPress?: () => void;
+  onViewButtonPress?: (id: number) => void;
 }) => {
   const renderItem = ({item}: {item: Item}) => {
     return (
