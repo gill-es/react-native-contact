@@ -8,10 +8,7 @@ const ContactListLayout = ({children}: {children: React.ReactNode}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexGrow: 1,
   },
 });
 

@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import ContactsAPI, {ContactDataParams} from '../features/Contact/api';
 import {Contact} from '../features/Contact/types/contact';
+import {Pagination} from '../types/api';
 
 type ContactState = {
   list: Array<Contact>;
@@ -22,10 +23,13 @@ const initialState: ContactState = {
   isLoading: false,
 };
 
-const getContacts = createAsyncThunk('contacts/getContacts', async () => {
-  const response = await ContactsAPI.getContacts();
-  return response.data;
-});
+const getContacts = createAsyncThunk(
+  'contacts/getContacts',
+  async ({page, limit}: Pagination) => {
+    const response = await ContactsAPI.getContacts({page, limit});
+    return response.data;
+  },
+);
 
 const getContact = createAsyncThunk(
   'contacts/getContact',

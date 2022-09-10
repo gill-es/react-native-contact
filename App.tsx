@@ -10,9 +10,9 @@ export default () => (
   <>
     <IconRegistry icons={EvaIconsPack} />
     <Provider store={store}>
-      <ApplicationProvider {...eva} theme={eva.light}>
-        <MainStackNavigation />
-      </ApplicationProvider>
+        <ApplicationProvider {...eva} theme={eva.light}>
+          <MainStackNavigation />
+        </ApplicationProvider>
     </Provider>
   </>
 );

@@ -9,7 +9,7 @@ import {ImageURISource, StyleSheet, View} from 'react-native';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Details'>;
 
-const ContactDetails = ({route, navigation}: Props) => {
+const ContactDetails = ({route}: Props) => {
   const dispatch = useAppDispatch();
   const contact = useAppSelector(state => state.contacts.item);
 

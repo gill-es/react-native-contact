@@ -1,6 +1,7 @@
 import React, {useCallback} from 'react';
-import {ListItem, Avatar, Divider, Button} from '@ui-kitten/components';
-import {ImageURISource, View} from 'react-native';
+import {ListItem, Avatar, Button, ButtonGroup} from '@ui-kitten/components';
+import {ImageURISource, StyleSheet} from 'react-native';
+import {Contact} from '../../../features/Contact/types/contact';
 
 export type Item = {
   id: string | number;
@@ -12,38 +13,62 @@ export type Item = {
 const DefaultListItem = ({
   item,
   onViewButtonPress,
+  onItemSelect,
 }: {
   item: Item;
   onViewButtonPress?: (id: number) => void;
+  onItemSelect?: (contact: Contact) => void;
 }) => {
   const handleViewButtonPress = useCallback(() => {
     if (onViewButtonPress) {
       onViewButtonPress(item.id as number);
     }
-  }, [item.id]);
+  }, [item, onViewButtonPress]);
+
+  const handleOnItemPress = useCallback(() => {
+    if (onItemSelect) {
+      onItemSelect({
+        id: item.id,
+        name: item.title,
+        email: item.description,
+        avatar: item.avatar,
+      });
+    }
+  }, [item, onItemSelect]);
 
   const ItemImage = () => {
     return <Avatar source={{uri: item.avatar} as ImageURISource} />;
   };
 
   const ItemButtons = () => (
-    <Button size="medium" onPress={handleViewButtonPress}>
-      View
-    </Button>
+    <ButtonGroup>
+      <Button size="small" onPress={handleViewButtonPress}>
+        View
+      </Button>
+      <Button size="small" status="warning" onPress={handleViewButtonPress}>
+        Edit
+      </Button>
+    </ButtonGroup>
   );
 
   return (
-    <View>
-      <Divider />
-      <ListItem
-        title={`${item.id} ${item.title}`}
-        description={item.description}
-        accessoryLeft={ItemImage}
-        accessoryRight={ItemButtons}
-      />
-      <Divider />
-    </View>
+    <ListItem
+      title={`${item.id} ${item.title}`}
+      description={item.description}
+      accessoryLeft={ItemImage}
+      accessoryRight={ItemButtons}
+      onPress={handleOnItemPress}
+      style={styles.item}
+    />
   );
 };
+
+const styles = StyleSheet.create({
+  item: {
+    marginBottom: 20,
+    paddingLeft: 30,
+    paddingRight: 30,
+  },
+});
 
 export default DefaultListItem;
